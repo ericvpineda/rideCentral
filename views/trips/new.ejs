@@ -1,0 +1,38 @@
+<%- layout('layout/boilerplate') %> 
+
+<div class="container">
+
+    <div class="row">
+
+        <h1 class="text-center mb-4">Create Trip</h1>
+
+            <div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+                <form action="/trips" method="post">
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="title">Title</span>
+                        <input type="text" class="form-control" id="title" name="trip[title]" placeholder="Title">
+                    </div>
+                
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="description">Description</span>
+                        <textarea type="text" class="form-control" rows="2" id="description" name="trip[description]" placeholder="Description"></textarea>
+                    </div>
+                
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="location">Location</span>
+                        <input type="text" class="form-control" id="location" name="trip[location]" placeholder="Location">
+                    </div>
+                
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="image">Image</span>
+                        <input type="text" class="form-control" id="image" name="trip[image]" placeholder="Image">
+                    </div>
+                
+                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                </form>
+            </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,38 @@
+<%- layout('layout/boilerplate') %> 
+
+<h1 class="text-center mb-3">All Rides</h1>
+
+<ul>
+    <% for( let t of trips ) { %>
+        
+        <a href="trips/<%= t._id %>">
+            
+            <div class="card mb-4">
+                
+                <div class="row">
+                
+                    <div class="col col-md-3">
+                        <img class="img-fluid" src="<%= t.img %> ">
+                    </div>
+
+                    <div class="col col-md-9">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <%= t.title %>
+                            </div>
+                            <div class="card-text text-muted">
+                                <%= t.description %>
+                            </div>
+            
+                            <div class="card-text text-muted">
+                                <%= t.date %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </a>
+    
+    <% } %>
+</ul>

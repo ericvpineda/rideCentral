@@ -1,0 +1,38 @@
+<%- layout('layout/boilerplate') %> 
+
+<div class="container">
+
+    <div class="row">
+
+        <h1 class="text-center mb-4">Edit Trip</h1>
+
+            <div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+                <form action="/trips/<%= trip._id %>?_method=PATCH " method="post">
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="title">Title</span>
+                        <input type="text" class="form-control" id="title" name="trip[title]" value="<%= trip.title %>">
+                    </div>
+                
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="description">Description</span>
+                        <textarea type="text" class="form-control" id="description" name="trip[description]"><%= trip.description%></textarea>
+                    </div>
+                
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="location">Location</span>
+                        <input type="text" class="form-control" id="location" name="trip[location]" value="<%= trip.location%>">
+                    </div>
+                
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="image">Image</span>
+                        <input type="text" class="form-control" id="image" name="trip[image]" value="<%= trip.img%>">
+                    </div>
+                
+                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                </form>
+            </div>
+
+    </div>
+
+</div>

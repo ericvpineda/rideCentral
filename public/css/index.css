@@ -1,0 +1,17 @@
+ul > a, ul > a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+img {
+    min-height: 150px;
+    max-height: 150px;
+}
+
+
+.row {
+    max-height: 150px;
+} 
+
+
+
