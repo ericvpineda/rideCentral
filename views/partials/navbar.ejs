@@ -23,6 +23,8 @@
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/trips/new">New Trip</a>
             </li>
+        </ul>
+
 
             <div class="navbar-nav dropdown">
               
@@ -30,12 +32,26 @@
                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Account
                 </a>
-                
-              </div>
 
-        </ul>
+                  <ul class="dropdown-menu dropdown-menu-end">
+
+                    <% if (authorizeUser) { %>
+                        
+                        <li class='dropdown-item mb-2 disabled'>Hi <%= authorizeUser.username %>!</li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                     
+                    <% } else { %>
+
+                        <li><a class="dropdown-item" href="/login">Login</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a href="/register" class="dropdown-item">New Rider</a></li>
+
+                    <% } %> 
+                </ul>
+                
+            </div>
       
-    </div>
+        </div>
 
     </div>
 

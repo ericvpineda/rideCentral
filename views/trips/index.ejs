@@ -1,38 +1,51 @@
 <%- layout('layout/boilerplate') %> 
+<%- block('head').append('<link rel="stylesheet" href="/css/index.css">') %> 
+<%- block('head').append('<script src="/js/dateFormat.min.js"></script>') %> 
+<%- block('head').append('<script src="/js/show.js"></script>') %> 
 
 <h1 class="text-center mb-3">All Rides</h1>
 
 <ul>
-    <% for( let t of trips ) { %>
+    <% if (trips.length > 0) { %>
+        <% for( let t of trips ) { %>
         
-        <a href="trips/<%= t._id %>">
-            
-            <div class="card mb-4">
+            <a href="trips/<%= t._id %>">
                 
-                <div class="row">
-                
-                    <div class="col col-md-3">
-                        <img class="img-fluid" src="<%= t.img %> ">
-                    </div>
-
-                    <div class="col col-md-9">
-                        <div class="card-body">
-                            <div class="card-title">
-                                <%= t.title %>
-                            </div>
-                            <div class="card-text text-muted">
-                                <%= t.description %>
-                            </div>
-            
-                            <div class="card-text text-muted">
-                                <%= t.date %>
+                <div class="card mb-4">
+                    
+                    <div class="row">
+                    
+                        <div class="col col-md-3">
+                            <img class="img-fluid" src="<%= t.img %> ">
+                        </div>
+    
+                        <div class="col col-md-9">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <%= t.title %>
+                                </div>
+                                <div class="card-text">
+                                    <%= t.description %>
+                                </div>
+    
+                                <div class="card-text text-muted date">
+                                    <%= t.date %>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-        </a>
     
-    <% } %>
+            </a>
+        
+        <% } %>
+    <% } else { %>
+
+        <div class="text-center mt-5">
+
+            No trips yet. Go on a ride and write about it here :) 
+
+        </div>
+
+    <% } %> 
 </ul>

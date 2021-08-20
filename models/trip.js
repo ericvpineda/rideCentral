@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Review = require('../models/review')
 const Schema = mongoose.Schema;
 
 const tripSchema = new Schema({
@@ -18,6 +19,17 @@ const tripSchema = new Schema({
     },
     date : {
         type : String
+    },
+    reviews : [{
+        type : Schema.Types.ObjectId,
+        ref : "Review"
+    }]
+})
+
+// NOTE: REMOVE ALL REVIEW ASSO WITH TRIP
+tripSchema.post('findOneAndDelete', async function(trip) {
+    if (trip) {
+        await Review.deleteMany({_id : {$in : trip.reviews}})
     }
 })
 

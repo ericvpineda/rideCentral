@@ -1,12 +1,23 @@
 <%- layout('layout/boilerplate') %> 
 
+<%- block('head').append('<script src="/js/dateFormat.min.js"></script>') %> 
+<%- block('head').append('<script src="/js/show.js"></script>') %> 
+<%- block('js').append('<link rel="stylesheet" href="/css/show.css">') %> 
+
+
+<a href="/trips">
+    <svg id='arrow' width="35" height="35" viewBox="0 0 24 24" fill="#000" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7.83 11L11.41 7.41L10 6L4 12L10 18L11.41 16.59L7.83 13H20V11H7.83Z" fill="#fff"/>
+    </svg>
+</a>
+
 <div class="container">
 
-    <h3 class="text-center"><%= trip.title %></h5>
 
     <div class="row">
 
-        <div class="col-8 offset-2">
+        <!-- Note: main text  -->
+        <div class="col-5 offset-1">
 
             <div class="card">
 
@@ -14,32 +25,114 @@
 
                 <div class="card-body">
 
-                    <p class="card-text"><%= trip.description %></p>
+                    <h3 class="card-title"><%= trip.title %></h5>
+
+                    <p class="card-text">Description: <%= trip.description %></p>
 
                 </div>
 
                 <ul class="list-group list-group-flush">
 
                     <li class="list-group-item">Location: <%= trip.location %> </li>
-                    <li class="list-group-item text-muted">Posted: <%= trip.date %> </li>
+                    <li class="list-group-item text-muted date">Posted: <%= trip.date %> </li>
+                    <li class="list-group-item">
+
+                        <a href="/trips/<%= trip._id %>/edit" class="btn btn-warning card-link">Edit Trip</a>
+                        
+                        <form style="display: inline;" class="card-link" action="/trips/<%= trip._id %>?_method=DELETE " method="post">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+
+                    </li>
 
                 </ul>
 
-               
-
             </div>
 
-            <div class="card-body col">
-
-                <a href="/trips" class="btn btn-info card-link">Back to Index</a>
-                <a href="/trips/<%= trip._id %>/edit" class="btn btn-danger card-link">Edit Trip</a>
-
+            <div class="mt-3">
+                <form action="/trips/<%= trip.id %>/reviews/" method='post' class="mb-5" novalidate class="validate-client">
+                
+                    <div class="mb-4">
+                        <h3>Write a Review</h3>
+                    </div>
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Rating</label>
+                        <input type="range" name="review[rating] "class="form-range" min=1 max=5 required>
+                        <div class="valid-feedback">
+                            Valid!
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="body" class="form-label mb-1">Review</label>
+                        <textarea type="text" class="form-control" name="review[body]" id="body" cols="30" rows="4" required></textarea>
+                        <div class="valid-feedback">
+                            Valid!
+                        </div>
+                    </div>
+                    <button class="btn btn-success">Submit</button>
+                </form>
             </div>
+            
+        
+        </div>
+
+        <!-- note: review  -->
+        <div class="col-4 offset-1 mt-3">
+
+            <h3>Reviews</h3>
+
+            <!-- note: review posts  -->
+            <% if (trip.reviews.length > 0) { %>
+                
+                <% for (let review of trip.reviews) { %>
+            
+                    <div class="card mb-3 mt-3">
+    
+                        <div class="card-body">
+    
+                            <div class="card-title">
+    
+                                Rating: <%= review.rating %> 
+    
+                            </div>
+    
+                            <div class="card-text">
+    
+                                <%= review.body %> 
+    
+                            </div>
+    
+                            <div class="mt-3">
+    
+                                <form action="/trips/<%= trip.id %>/reviews/<%= review.id %>?_method=DELETE" method="post">
+                                
+                                    <button class="btn btn-danger">Delete</button>
+                                
+                                </form>
+    
+                            </div>
+    
+                        </div>
+    
+                    </div>
+    
+                <% } %>
+
+            <% } else { %>
+
+                No reviews at the moment :(
+
+            <% } %>
+
+            
 
         </div>
 
     </div>
 
 </div>
+
+
+
 
 

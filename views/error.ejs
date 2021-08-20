@@ -1,0 +1,35 @@
+<%- layout('layout/boilerplate') %> 
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-6 offset-3">
+
+            <div class="alert alert-danger">
+
+                <h4 class="alert-heading">
+
+                    Error Status: <%= error.code %> 
+
+                </h4>
+                
+                <h5>
+
+                    <%= error.msg %> 
+
+                </h5>
+
+                <p style="word-wrap: break-word;">
+
+                    <%= error.stack %> 
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

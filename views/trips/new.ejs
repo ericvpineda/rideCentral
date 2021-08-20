@@ -1,4 +1,11 @@
 <%- layout('layout/boilerplate') %> 
+<%- block('js').append('<link rel="stylesheet" href="/css/new.css">') %> 
+
+<a href="/trips">
+    <svg id='arrow' width="35" height="35" viewBox="0 0 24 24" fill="#000" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7.83 11L11.41 7.41L10 6L4 12L10 18L11.41 16.59L7.83 13H20V11H7.83Z" fill="#fff"/>
+    </svg>
+</a>
 
 <div class="container">
 
@@ -7,26 +14,47 @@
         <h1 class="text-center mb-4">Create Trip</h1>
 
             <div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3">
-                <form action="/trips" method="post">
+                
+                <form action="/trips" method="post" novalidate class="validate-client">
                     
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="title">Title</span>
-                        <input type="text" class="form-control" id="title" name="trip[title]" placeholder="Title">
+                        <input type="text" class="form-control" id="title" name="trip[title]" placeholder="Title" required>
+                        <div class="valid-feedback">
+                            Valid!
+                        </div>
                     </div>
                 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="description">Description</span>
-                        <textarea type="text" class="form-control" rows="2" id="description" name="trip[description]" placeholder="Description"></textarea>
+                        <textarea type="text" class="form-control" rows="2" id="description" name="trip[description]" placeholder="Description" required></textarea>
+                        <div class="valid-feedback">
+                            Valid!
+                        </div>
                     </div>
                 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="location">Location</span>
-                        <input type="text" class="form-control" id="location" name="trip[location]" placeholder="Location">
+                        <input type="text" class="form-control" id="location" name="trip[location]" placeholder="Location" required>
+                        <div class="valid-feedback">
+                            Valid!
+                        </div>
                     </div>
                 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="image">Image</span>
-                        <input type="text" class="form-control" id="image" name="trip[image]" placeholder="Image">
+                        <input type="text" class="form-control" id="image" name="trip[img]" placeholder="Image" required>
+                        <div class="valid-feedback">
+                            Valid!
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="date">Date</span>
+                        <input type="date" class="form-control" id="date" name="trip[date]" required>
+                        <div class="valid-feedback">
+                            Valid!
+                        </div>
                     </div>
                 
                     <button type="submit" class="btn btn-primary mt-3">Submit</button>

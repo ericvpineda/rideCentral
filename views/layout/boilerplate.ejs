@@ -7,11 +7,15 @@
 
     <main class="container mt-5">
 
+        <%- include('../partials/flash') %>  
         
         <%- body %> 
     
     </main>
 
+    <!-- js files  -->
+    <script src="/js/clientValidate.js"></script>
+    <%- block('js').toString() %>
 </body>
 
 <%- include('../partials/footer') %>

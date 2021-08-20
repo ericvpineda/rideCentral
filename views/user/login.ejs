@@ -1,0 +1,45 @@
+<%- layout('layout/boilerplate') %> 
+
+<div class="container mt-5 mb-5">
+
+    <div class="row">
+
+        <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+
+            <div class="card shadow" style="overflow:hidden">
+            
+                <div class="card-body">
+
+                    <h5 class="card-title text-center">Sign into Ride Central</h5>
+
+                </div>
+
+                <form action="/login" method="post" class="validate-client mb-3">
+                
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="username">Name</span>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                        <div class="valid-feedback">
+                            Valid!
+                        </div>
+                    </div>
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="password">Password</span>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                        <div class="valid-feedback">
+                            Valid!
+                        </div>
+                    </div>
+
+                    <button class="btn btn-success text-center">SIGN IN</button>
+                    
+                </form>
+                
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
