@@ -14,10 +14,12 @@ mongoose.connect(localUrl, {
     useFindAndModify : false
 })
 
+const count = 200;
+
 const seedDb = async () => {
     await Trip.deleteMany({});
     await Review.deleteMany({});
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < count; i++) {
         var r1 = Math.floor(Math.random() * 15) + 1;
         var r2 = Math.floor(Math.random() * 15) + 1;
         var r3 = Math.floor(Math.random() * 500) + 1;
@@ -38,10 +40,17 @@ const seedDb = async () => {
         const trip = new Trip({
             title : place,
             description : `${place} is so much fun! orem ipsum dolor sit amet consectetur adipisicing elit. Quasi non perspiciatis, illum`,
-            location : `${cities[r3].longitude} ${cities[r3].latitude}`,
-            img : "https://source.unsplash.com/collection/429524/1600x900",
+            location : `${cities[r3].city}, ${cities[r3].state}`,
+            img : {
+                url : "https://source.unsplash.com/collection/429524/1600x900",
+                filename : ""
+            },
             date : `${year}-${mon}-${day}`,
-            rider : "61202967aa20cf4b20d09f67"
+            rider : "61202967aa20cf4b20d09f67",
+            geometry : {
+                type : "Point",
+                coordinates : [cities[r3].longitude, cities[r3].latitude]
+            }
         })
 
         trip.save()

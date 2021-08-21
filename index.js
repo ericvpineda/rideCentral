@@ -21,6 +21,7 @@ const session = require('express-session')
 const passport = require('passport');
 const passportStrategy = require('passport-local');
 const User = require('./models/user');
+const Trip = require('./models/trip')
 
 // SET FUNCTIONS 
 app.set('view engine', 'ejs');
@@ -89,8 +90,10 @@ app.use('/trips/:id/reviews/', reviewRoute)
 app.use('/', userRoute)
 
 // HOME 
-app.get('/', (req, res) => {
-    res.render('home')
+app.get('/', async (req, res) => {
+    const trips = await Trip.find({})
+        .catch(() => {new CustomError("No products found!", 404)});
+    res.render('home', {trips})
 })
 
 

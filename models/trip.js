@@ -2,6 +2,15 @@ const mongoose = require('mongoose');
 const Review = require('../models/review')
 const Schema = mongoose.Schema;
 
+const imageSchema = new Schema({
+    url : String,
+    filename : String
+})
+
+imageSchema.virtual('thumbnail').get(function() {
+    return this.url.replace('/upload','/upload/w_100,h_100')
+})
+
 const tripSchema = new Schema({
     title : {
         type : String,
@@ -14,10 +23,7 @@ const tripSchema = new Schema({
         type : String, 
         required: true 
     },
-    img : [{
-        url : String,
-        filename : String
-    }],
+    img : [imageSchema],
     date : {
         type : String
     },
@@ -28,7 +34,23 @@ const tripSchema = new Schema({
     rider : {
         type : Schema.Types.ObjectId,
         ref : "User"
+    },
+    geometry : {
+        type : {
+            type : String,
+            enum : ["Point"],
+            required : true
+        },
+        coordinates : {
+            type : [Number],
+            required : true
+        }
     }
+}, {toJSON : {virtuals : true}})
+
+tripSchema.virtual('properties.popUp').get(function () {
+    return `<strong><a href="/trips/${this._id}">${this.title}</a><strong>
+    <p>${this.description.substring(0,20)}...</p>`
 })
 
 // NOTE: REMOVE ALL REVIEW ASSO WITH TRIP

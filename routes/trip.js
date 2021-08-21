@@ -23,7 +23,7 @@ router.route('/new')
 // SHOW & PATCH
 router.route('/:id')
     .get(catchAsyncError(trip.show))
-    .patch(authenLogin, authorizeRider, validateTrip, catchAsyncError(trip.editAction))
+    .patch(authenLogin, authorizeRider, upload.array('image'), validateTrip, catchAsyncError(trip.editAction))
     .delete(authenLogin, authorizeRider, catchAsyncError(trip.deleteAction))
 
 // EDIT 
