@@ -8,6 +8,11 @@ const Trip = require('../models/trip');
 const createAction = async (req, res) => {
     const trip = await Trip.findById(req.params.id);
     const newReview = await new Review(req.body.review);
+    newReview.rider = req.user._id;
+    const utcDate = new Date();
+    newReview.date = new Date(utcDate.getTime() - utcDate.getTimezoneOffset() * 60000)
+        .toISOString().split("T")[0]
+
     trip.reviews.push(newReview);
 
     await trip.save();

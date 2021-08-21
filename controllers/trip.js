@@ -14,7 +14,12 @@ const index = async (req, res, next) => {
 // SHOW
 const show = async (req, res, next) => {
     const {id} = req.params;
-    const trip = await Trip.findById(id).populate('reviews')
+    const trip = await Trip.findById(id).populate({
+        path : 'reviews',
+        populate : {
+            path : 'rider'
+        }
+    })
         .catch(() => {throw new CustomError("Cannot find product!", 404)});
     if (trip === null) {
         req.flash('error', 'Cannot find specified trip!');
@@ -31,6 +36,7 @@ const createForm = async (req, res) => {
 
 const createAction = async (req, res) => {
     const newTrip = new Trip(req.body.trip);
+    newTrip.rider = req.user._id;
     await newTrip.save();
 
     // res.send(req.body.trip)
@@ -54,8 +60,8 @@ const editAction = async (req, res) => {
 
     const {id} = req.params;
     const trip = await Trip.findByIdAndUpdate(id, {... req.body.trip}, {runValidators : true, new : true})
-    trip.save();
 
+    trip.save();
     req.flash('success', 'Updated your trip!')
     res.redirect(`${id}`)
 }

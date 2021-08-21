@@ -1,6 +1,7 @@
 // VARIABLES 
 const {tripSchema, reviewSchema} = require('../utils/JoiSchemas');
 const {CustomError} = require('../utils/CustomError')
+const Trip = require('../models/trip')
 
 // NOTE: CATCH ERRORS WITH DB
 const catchAsyncError = (fn) => {
@@ -26,8 +27,20 @@ const authenLogin = (req, res, next) => {
     if (!req.isAuthenticated()) {
         req.session.prevPage = req.originalUrl;
         req.flash('error', 'Please sign in!');
-        res.redirect('/login');
+        return res.redirect('/login');
     }
+    next()
+}
+
+const authorizeRider = async (req, res, next) => {
+    
+    const {id} = req.params;
+    const trip = await Trip.findById(id);
+    
+    if (trip && !trip.rider.equals(req.user._id)) {
+        req.flash('error', 'You do not have permission to access this!');
+        return res.redirect(`/trips/${trip._id}`);
+    } 
     next()
 }
 
@@ -44,4 +57,4 @@ const validateReview = (req, res, next) => {
 
 
 
-module.exports = {catchAsyncError, validateTrip, authenLogin, validateReview}
+module.exports = {catchAsyncError, validateTrip, authenLogin, validateReview, authorizeRider}

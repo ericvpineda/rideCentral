@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express();
-const {catchAsyncError, validateTrip, authenLogin} = require('../middleware/middleware')
+const {catchAsyncError, validateTrip, authenLogin, authorizeRider} = require('../middleware/middleware')
 
 // CONTROLLER   
 const trip = require('../controllers/trip');
@@ -19,11 +19,11 @@ router.route('/new')
 // SHOW & PATCH
 router.route('/:id')
     .get(catchAsyncError(trip.show))
-    .patch(authenLogin, validateTrip, catchAsyncError(trip.editAction))
-    .delete(authenLogin, catchAsyncError(trip.deleteAction))
+    .patch(authenLogin, authorizeRider, validateTrip, catchAsyncError(trip.editAction))
+    .delete(authenLogin, authorizeRider, catchAsyncError(trip.deleteAction))
 
 // EDIT 
-router.route("/:id/edit").get(trip.editForm)
+router.route("/:id/edit").get(authorizeRider, trip.editForm)
 
 
 module.exports = router

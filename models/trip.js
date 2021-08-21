@@ -23,7 +23,11 @@ const tripSchema = new Schema({
     reviews : [{
         type : Schema.Types.ObjectId,
         ref : "Review"
-    }]
+    }],
+    rider : {
+        type : Schema.Types.ObjectId,
+        ref : "User"
+    }
 })
 
 // NOTE: REMOVE ALL REVIEW ASSO WITH TRIP

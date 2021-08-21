@@ -41,6 +41,7 @@ const seedDb = async () => {
             location : `${cities[r3].longitude} ${cities[r3].latitude}`,
             img : "https://source.unsplash.com/collection/429524/1600x900",
             date : `${year}-${mon}-${day}`,
+            rider : "61202967aa20cf4b20d09f67"
         })
 
         trip.save()

@@ -34,45 +34,56 @@
                 <ul class="list-group list-group-flush">
 
                     <li class="list-group-item">Location: <%= trip.location %> </li>
-                    <li class="list-group-item text-muted date">Posted: <%= trip.date %> </li>
-                    <li class="list-group-item">
+                    <li class="list-group-item text-muted">Posted: <%= trip.date %> </li>
+                    
+                    <% if (authorizeUser && authorizeUser.equals(trip.rider)) { %>
+                     
+                        <li class="list-group-item">
 
-                        <a href="/trips/<%= trip._id %>/edit" class="btn btn-warning card-link">Edit Trip</a>
-                        
-                        <form style="display: inline;" class="card-link" action="/trips/<%= trip._id %>?_method=DELETE " method="post">
-                            <button class="btn btn-danger">Delete</button>
-                        </form>
+                            <a href="/trips/<%= trip._id %>/edit" class="btn btn-warning card-link">Edit Trip</a>
+                            
+                            <form style="display: inline;" class="card-link" action="/trips/<%= trip._id %>?_method=DELETE " method="post">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+    
+                        </li>
 
-                    </li>
+                    <% } %>
+                    
+                   
 
                 </ul>
 
             </div>
 
-            <div class="mt-3">
-                <form action="/trips/<%= trip.id %>/reviews/" method='post' class="mb-5" novalidate class="validate-client">
-                
-                    <div class="mb-4">
-                        <h3>Write a Review</h3>
-                    </div>
-                    <div class="mb-3">
-                        <label for="rating" class="form-label">Rating</label>
-                        <input type="range" name="review[rating] "class="form-range" min=1 max=5 required>
-                        <div class="valid-feedback">
-                            Valid!
+            <% if (authorizeUser) { %>
+             
+                <div class="mt-3">
+                    <form action="/trips/<%= trip.id %>/reviews/" method='post' class="mb-5" novalidate class="validate-client">
+                    
+                        <div class="mb-4">
+                            <h3>Write a Review</h3>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="body" class="form-label mb-1">Review</label>
-                        <textarea type="text" class="form-control" name="review[body]" id="body" cols="30" rows="4" required></textarea>
-                        <div class="valid-feedback">
-                            Valid!
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Rating</label>
+                            <input type="range" name="review[rating] "class="form-range" min=1 max=5 required>
+                            <div class="valid-feedback">
+                                Valid!
+                            </div>
                         </div>
-                    </div>
-                    <button class="btn btn-success">Submit</button>
-                </form>
-            </div>
-            
+                        <div class="mb-3">
+                            <label for="body" class="form-label mb-1">Review</label>
+                            <textarea type="text" class="form-control" name="review[body]" id="body" cols="30" rows="4" required></textarea>
+                            <div class="valid-feedback">
+                                Valid!
+                            </div>
+                        </div>
+                        <button class="btn btn-success">Submit</button>
+                    </form>
+                </div>
+
+            <% } %>
+
         
         </div>
 
@@ -89,10 +100,22 @@
                     <div class="card mb-3 mt-3">
     
                         <div class="card-body">
-    
+
                             <div class="card-title">
     
+                                <%= review.rider.username %> 
+    
+                            </div>
+    
+                            <div class="card-text">
+    
                                 Rating: <%= review.rating %> 
+    
+                            </div>
+                            
+                            <div class="card-text">
+    
+                                Posted: <%= review.date %> 
     
                             </div>
     
@@ -101,7 +124,9 @@
                                 <%= review.body %> 
     
                             </div>
-    
+                            
+                            <% if (authorizeUser && authorizeUser._id.equals(review.rider._id)) { %>
+
                             <div class="mt-3">
     
                                 <form action="/trips/<%= trip.id %>/reviews/<%= review.id %>?_method=DELETE" method="post">
@@ -111,8 +136,13 @@
                                 </form>
     
                             </div>
+
+                        
+                        <% } %> 
+
     
                         </div>
+
     
                     </div>
     
