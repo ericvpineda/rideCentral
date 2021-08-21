@@ -15,7 +15,7 @@
 
             <div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3">
                 
-                <form action="/trips" method="post" novalidate class="validate-client">
+                <form action="/trips" method="post" novalidate class="validate-client" enctype="multipart/form-data">
                     
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="title">Title</span>
@@ -42,8 +42,8 @@
                     </div>
                 
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="image">Image</span>
-                        <input type="text" class="form-control" id="image" name="trip[img]" placeholder="Image" required>
+                        <input type="file" class="form-control" name="image" multiple="multiple" accept="image/*" required>
+
                         <div class="valid-feedback">
                             Valid!
                         </div>

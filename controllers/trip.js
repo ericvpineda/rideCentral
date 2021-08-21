@@ -1,6 +1,8 @@
 // VARIABLES 
 const Trip = require('../models/trip');
 const CustomError = require('../utils/CustomError')
+const {cloudinary} = require('../cloudinary')
+
 
 // FUNCTIONS 
 
@@ -37,6 +39,7 @@ const createForm = async (req, res) => {
 const createAction = async (req, res) => {
     const newTrip = new Trip(req.body.trip);
     newTrip.rider = req.user._id;
+    newTrip.img = req.files.map(file => ({url : file.path, filename : file.filename}))
     await newTrip.save();
 
     // res.send(req.body.trip)

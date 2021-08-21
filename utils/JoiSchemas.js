@@ -6,7 +6,7 @@ const tripSchema = new Joi.object({
     trip : Joi.object({
         title : Joi.string().required(),
         description : Joi.string().required(),
-        img : Joi.string().required(),
+        // img : Joi.string().required(),
         location : Joi.string().required(),
         date : Joi.string().required() 
     }).required()

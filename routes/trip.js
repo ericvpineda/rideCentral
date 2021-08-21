@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express();
 const {catchAsyncError, validateTrip, authenLogin, authorizeRider} = require('../middleware/middleware')
+const multer = require('multer')
+const {store} = require('../cloudinary')
+
+var upload = multer({ storage : store})
 
 // CONTROLLER   
 const trip = require('../controllers/trip');
@@ -10,7 +14,7 @@ const trip = require('../controllers/trip');
 // INDEX & POST 
 router.route('/')
     .get(catchAsyncError(trip.index)) 
-    .post(authenLogin, validateTrip, catchAsyncError(trip.createAction))
+    .post(authenLogin, upload.array('image'), validateTrip, catchAsyncError(trip.createAction))
 
 // CREATE
 router.route('/new')

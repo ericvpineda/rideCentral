@@ -14,9 +14,10 @@ const tripSchema = new Schema({
         type : String, 
         required: true 
     },
-    img : {
-        type : String
-    },
+    img : [{
+        url : String,
+        filename : String
+    }],
     date : {
         type : String
     },
