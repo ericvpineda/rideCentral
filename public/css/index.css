@@ -8,3 +8,7 @@ img {
     /* max-height: 150px; */
     min-width: 100%;
 }
+
+.posts {
+    margin-right: 2rem;
+}

@@ -5,56 +5,58 @@
 
 <h1 class="text-center mb-3">All Rides</h1>
 
-<ul>
-    <% if (trips.length > 0) { %>
-        <% for( let t of trips ) { %>
-        
-            <a href="rides/<%= t._id %>">
-                
-                <div class="card mb-4">
-                    
-                    <div class="row">
-                    
-                        <div class="col-md-3">
-                            <% if (t.img.length) { %>
-                                
-                                <img class="img-fluid" src="<%= t.img[0].url %> ">
-                                
-                            <% } else { %>
-
-                                <img class="img-fluid" src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="">
-
-                            <% } %> 
-
-                        </div>
+<div class="posts">
+    <ul>
+        <% if (trips.length > 0) { %>
+            <% for( let t of trips ) { %>
     
-                        <div class="col col-md-9">
-                            <div class="card-body">
-                                <div class="card-title">
-                                    <%= t.title %>
-                                </div>
-                                <div class="card-text">
-                                    <%= t.description.slice(0,150) %>
-                                </div>
+                <a href="rides/<%= t._id %>">
     
-                                <div class="card-text text-muted date">
-                                    <%= t.date %>
+                    <div class="card mb-4">
+    
+                        <div class="row">
+    
+                            <div class="col-md-3">
+                                <% if (t.img.length) { %>
+    
+                                    <img class="img-fluid" src="<%= t.img[0].url %> ">
+    
+                                <% } else { %>
+    
+                                    <img class="img-fluid" src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="">
+    
+                                <% } %>
+    
+                            </div>
+    
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    <div class="card-title">
+                                        <%= t.title %>
+                                    </div>
+                                    <div class="card-text">
+                                        <%= t.description.slice(0,150) %>
+                                    </div>
+    
+                                    <div class="card-text text-muted date">
+                                        <%= t.date %>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
     
-            </a>
-        
+                </a>
+    
+            <% } %>
+        <% } else { %>
+    
+            <div class="text-center mt-5">
+    
+                No trips yet. Go on a ride and write about it here :)
+    
+            </div>
+    
         <% } %>
-    <% } else { %>
-
-        <div class="text-center mt-5">
-
-            No trips yet. Go on a ride and write about it here :) 
-
-        </div>
-
-    <% } %> 
-</ul>
+    </ul>
+</div>
