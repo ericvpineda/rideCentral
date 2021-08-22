@@ -21,11 +21,13 @@ const passport = require('passport');
 const passportStrategy = require('passport-local');
 const User = require('./models/user');
 const Trip = require('./models/trip')
-// const sanitizeMongo = require('express-mongo-sanitize')
-// const helmet = require('helmet');
-// const {scriptSrcUrls, styleSrcUrls, connectSrcUrls, fontSrcUrls} = require('./utils/allowedScripts');
+const sanitizeMongo = require('express-mongo-sanitize')
+const helmet = require('helmet');
+const {scriptSrcUrls, styleSrcUrls, connectSrcUrls, fontSrcUrls} = require('./utils/allowedScripts');
 const targetUrl = process.env.ATLAS_URL || 'mongodb://localhost:27017/rideCentral'
 const MongoStore = require('connect-mongo');
+const port = process.env.port || 3000
+
 
 const store = MongoStore.create({
     mongoUrl : targetUrl,
@@ -73,32 +75,32 @@ app.use(session(sessionOptions))
 app.use(expressFlash())
 app.use(passport.initialize())
 app.use(passport.session())
-// app.use(sanitizeMongo({replaceWith : "_"}))
-// app.use(helmet({contentSecurityPolicy : false}))
+app.use(sanitizeMongo({replaceWith : "_"}))
+app.use(helmet({contentSecurityPolicy : false}))
 
 passport.use(new passportStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
-// app.use(helmet.contentSecurityPolicy({
-//     directives : {
-//         defaultSrc : [],
-//         connectSrc : ["'self'", ...connectSrcUrls],
-//         scriptSrc : ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
-//         styleSrc : ["'unsafe-inline'", "'self'", ...styleSrcUrls],
-//         workerSrc : ["'self'", "blob:"],
-//         objectSrc : [],
-//         imgSrc : [
-//             "'self'",
-//             "blob:",
-//             "data:",
-//             "https://res.cloudinary.com/ridecentral/", 
-//             "https://images.unsplash.com/",
-//             "https://source.unsplash.com/"
-//         ],
-//         fontSrc : ["'self'", ...fontSrcUrls]
-//     }
-// }))
+app.use(helmet.contentSecurityPolicy({
+    directives : {
+        defaultSrc : [],
+        connectSrc : ["'self'", ...connectSrcUrls],
+        scriptSrc : ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+        styleSrc : ["'unsafe-inline'", "'self'", ...styleSrcUrls],
+        workerSrc : ["'self'", "blob:"],
+        objectSrc : [],
+        imgSrc : [
+            "'self'",
+            "blob:",
+            "data:",
+            "https://res.cloudinary.com/ridecentral/", 
+            "https://images.unsplash.com/",
+            "https://source.unsplash.com/"
+        ],
+        fontSrc : ["'self'", ...fontSrcUrls]
+    }
+}))
 
 
 // DATABASE 
@@ -122,7 +124,6 @@ app.use((req, res, next) => {
 })
 
 // ROUTES
-
 app.use('/rides', tripRoute)
 app.use('/rides/:id/reviews/', reviewRoute)
 app.use('/', userRoute)
@@ -149,7 +150,7 @@ app.use((err, req, res, next) => {
 
 
 // SERVER
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log('SERVER IS LISTENING TO PORT 3000')
 })
 
