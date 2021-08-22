@@ -39,7 +39,7 @@ const authorizeRider = async (req, res, next) => {
     
     if (trip && !trip.rider.equals(req.user._id)) {
         req.flash('error', 'You do not have permission to access this!');
-        return res.redirect(`/trips/${trip._id}`);
+        return res.redirect(`/rides/${trip._id}`);
     } 
     next()
 }

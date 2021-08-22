@@ -35,7 +35,8 @@ const tripSchema = new Joi.object({
         // img : Joi.string().required(),
         location : Joi.string().required().escapeHtml(),
         date : Joi.string().required().escapeHtml()
-    }).required()
+    }).required(),
+    deletedImg : Joi.array()
 })
 
 const reviewSchema = new Joi.object({

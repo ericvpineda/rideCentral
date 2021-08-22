@@ -10,7 +10,7 @@
  
 
 
-<a href="/trips">
+<a href="/rides">
     <svg id='arrow' width="35" height="35" viewBox="0 0 24 24" fill="#000" xmlns="http://www.w3.org/2000/svg">
         <path d="M7.83 11L11.41 7.41L10 6L4 12L10 18L11.41 16.59L7.83 13H20V11H7.83Z" fill="#fff"/>
     </svg>
@@ -30,7 +30,7 @@
                     
                     <div class="carousel-inner">
                     
-                        <% if (trip.img) { %>
+                        <% if (trip.img.length) { %>
                         
                             <% trip.img.forEach((image, i) => { %>
                             
@@ -79,9 +79,9 @@
                      
                         <li class="list-group-item">
 
-                            <a href="/trips/<%= trip._id %>/edit" class="btn btn-warning card-link">Edit Trip</a>
+                            <a href="/rides/<%= trip._id %>/edit" class="btn btn-warning card-link">Edit Trip</a>
                             
-                            <form style="display: inline;" class="card-link" action="/trips/<%= trip._id %>?_method=DELETE " method="post">
+                            <form style="display: inline;" class="card-link" action="/rides/<%= trip._id %>?_method=DELETE " method="post">
                                 <button class="btn btn-danger">Delete</button>
                             </form>
     
@@ -99,7 +99,7 @@
              
                 <div class="mt-3">
 
-                    <form action="/trips/<%= trip.id %>/reviews/" method='post' class="mb-5" novalidate class="validate-client">
+                    <form action="/rides/<%= trip.id %>/reviews/" method='post' class="mb-5" novalidate class="validate-client">
                     
                         <div class="mb-4">
                             <h3>Write a Review</h3>
@@ -190,7 +190,7 @@
 
                             <div class="mt-3">
     
-                                <form action="/trips/<%= trip.id %>/reviews/<%= review.id %>?_method=DELETE" method="post">
+                                <form action="/rides/<%= trip.id %>/reviews/<%= review.id %>?_method=DELETE" method="post">
                                 
                                     <button class="btn btn-danger">Delete</button>
                                 

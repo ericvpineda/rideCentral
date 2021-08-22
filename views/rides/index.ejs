@@ -9,7 +9,7 @@
     <% if (trips.length > 0) { %>
         <% for( let t of trips ) { %>
         
-            <a href="trips/<%= t._id %>">
+            <a href="rides/<%= t._id %>">
                 
                 <div class="card mb-4">
                     
@@ -34,7 +34,7 @@
                                     <%= t.title %>
                                 </div>
                                 <div class="card-text">
-                                    <%= t.description %>
+                                    <%= t.description.slice(0,150) %>
                                 </div>
     
                                 <div class="card-text text-muted date">

@@ -19,7 +19,7 @@ const createAction = async (req, res) => {
     await newReview.save();
     // await newReview.save();
 
-    res.redirect(`/trips/${trip._id}`);
+    res.redirect(`/rides/${trip._id}`);
 }
 
 
@@ -31,7 +31,7 @@ const deleteAction = async (req, res) => {
     await Review.findByIdAndDelete(reviewId);
     await Trip.findByIdAndUpdate(id, {$pull : {reviews : reviewId}});
 
-    res.redirect(`/trips/${trip._id}`);
+    res.redirect(`/rides/${trip._id}`);
 }
 
 

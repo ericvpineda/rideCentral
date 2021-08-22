@@ -6,7 +6,7 @@ const loginForm = async (req, res, next) => {
 
 const loginAction = async (req, res, next) => {
     req.flash('success', `Welcome back ${req.body.username}!`)
-    const route = req.session.prevPage || 'trips';
+    const route = req.session.prevPage || 'rides';
     delete req.session.prevPage;
     res.redirect(route);
 }
@@ -26,7 +26,7 @@ const registerAction = async(req, res, next) => {
         req.login(regUser, e => {
             if (e) { next(e) }
             req.flash('success', 'Successfully created new account!');
-            res.redirect('trips/')
+            res.redirect('rides/')
         })
 
         

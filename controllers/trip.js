@@ -12,7 +12,7 @@ const geoCode = mbxGeo({accessToken : process.env.MAPBOX_TOKEN})
 const index = async (req, res, next) => {
     const trips = await Trip.find({})
         .catch(() => {new CustomError("No products found!", 404)});
-    res.render("trips/index", {trips})
+    res.render("rides/index", {trips})
 }
 
 // SHOW
@@ -28,15 +28,15 @@ const show = async (req, res, next) => {
     console.log(trip.img[0])
     if (trip === null) {
         req.flash('error', 'Cannot find specified trip!');
-        res.redirect('/trips')
+        res.redirect('/rides')
     }
-    res.render("trips/show", {trip})
-    // res.redirect('/trips');
+    res.render("rides/show", {trip})
+    // res.redirect('/rides');
 }
 
 // CREATE 
 const createForm = async (req, res) => {
-    res.render("trips/new")
+    res.render("rides/new")
 }
 
 const createAction = async (req, res) => {
@@ -57,7 +57,7 @@ const createAction = async (req, res) => {
 
     // res.send(req.body.trip)
     req.flash('success', 'Added your new trip!')
-    res.redirect(`/trips`)
+    res.redirect(`/rides`)
 }
 
 // EDIT
@@ -67,9 +67,9 @@ const editForm = async (req, res) => {
 
     if (trip === null) {
         req.flash('error', 'Cannot find that trip!')
-        res.redirect(`/trips`)
+        res.redirect(`/rides`)
     } 
-    res.render("trips/edit", {trip})
+    res.render("rides/edit", {trip})
 }
 
 const editAction = async (req, res) => {
@@ -85,7 +85,7 @@ const editAction = async (req, res) => {
             await cloudinary.uploader.destroy(img)
                 .catch(() => {console.log("Image does not exist!")})
         }
-        await trip.updateOne({$pull : {img : { filename: { $in : req.body. deletedImg}}}})
+        await trip.updateOne({$pull : {img : { filename: { $in : req.body.deletedImg}}}})
     }
 
     req.flash('success', 'Updated your trip!')
@@ -97,7 +97,7 @@ const deleteAction = async (req, res) => {
     const {id} = req.params;
     await Trip.findByIdAndDelete(id);
     req.flash('success', 'Deleted your trip!')
-    res.redirect('/trips')
+    res.redirect('/rides')
 }
 
 module.exports = {index, show, createForm, createAction, editForm, editAction, deleteAction}
