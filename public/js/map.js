@@ -1,5 +1,9 @@
-mapboxgl.accessToken = accessToken
-;
+mapboxgl.accessToken = accessToken;
+
+if (!mapboxgl.supported()) {
+    alert('Your browser does not support mapbox gl!')
+}
+
 const map = new mapboxgl.Map({
     container : 'map',
     style : 'mapbox://styles/mapbox/light-v10',
