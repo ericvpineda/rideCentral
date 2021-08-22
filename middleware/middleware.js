@@ -1,6 +1,6 @@
 // VARIABLES 
 const {tripSchema, reviewSchema} = require('../utils/JoiSchemas');
-const {CustomError} = require('../utils/CustomError')
+const CustomError = require('../utils/CustomError')
 const Trip = require('../models/trip')
 
 // NOTE: CATCH ERRORS WITH DB
@@ -14,8 +14,8 @@ const catchAsyncError = (fn) => {
 // NOTE: VALIDATE REQ FROM CREATE / EDIT ROUTE 
 const validateTrip = (req, res, next) => {
 
-    const {notValid} = tripSchema.validate(req.body);
-    if (notValid) {
+    const {error} = tripSchema.validate(req.body);
+    if (error) {
         const errorMessage = error.details.map(el => el.message).join(',');
         throw new CustomError(errorMessage, 405);
     } else {
@@ -46,8 +46,8 @@ const authorizeRider = async (req, res, next) => {
 
 const validateReview = (req, res, next) => {
     
-    const {notValid} = reviewSchema.validate(req.body);
-    if (notValid) {
+    const {error} = reviewSchema.validate(req.body);
+    if (error) {
         const errorMessage = error.details.map(el => el.message).join(',');
         throw new CustomError(errorMessage, 405);
     } else {

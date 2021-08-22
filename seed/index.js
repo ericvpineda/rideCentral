@@ -14,7 +14,7 @@ mongoose.connect(localUrl, {
     useFindAndModify : false
 })
 
-const count = 200;
+const count = 3
 
 const seedDb = async () => {
     await Trip.deleteMany({});
@@ -46,7 +46,7 @@ const seedDb = async () => {
                 filename : ""
             },
             date : `${year}-${mon}-${day}`,
-            rider : "61202967aa20cf4b20d09f67",
+            rider : "61219980fb9de4a708feed33",
             geometry : {
                 type : "Point",
                 coordinates : [cities[r3].longitude, cities[r3].latitude]

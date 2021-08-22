@@ -1,4 +1,6 @@
 <%- layout('layout/boilerplate') %> 
+<%- block('head').append('<link rel="stylesheet" href="/css/user.css">') %> 
+
 
 <div class="container mt-5 mb-5">
 
@@ -8,39 +10,43 @@
 
             <div class="card shadow" style="overflow:hidden">
             
-                <div class="card-body">
+                <div class="card-title">
 
                     <h5 class="card-title text-center">Create Account</h5>
 
                 </div>
 
-                <form action="/register" method="post" class="validate-client mb-3">
-                
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="username">Name</span>
-                        <input type="text" class="form-control" id="username" name="username" required>
-                        <div class="valid-feedback">
-                            Valid!
-                        </div>
-                    </div>
+                <div class="card-body">
+                    <form action="/register" method="post" class="validate-client mb-3">
                     
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="email">email</span>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                        <div class="valid-feedback">
-                            Valid!
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="username">Name</span>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                            <div class="valid-feedback">
+                                Valid!
+                            </div>
                         </div>
-                    </div>
                     
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="password">Password</span>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                        <div class="valid-feedback">
-                            Valid!
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="email">Email</span>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                            <div class="valid-feedback">
+                                Valid!
+                            </div>
                         </div>
-                    </div>
+                    
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="password">Password</span>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                            <div class="valid-feedback">
+                                Valid!
+                            </div>
+                        </div>
+                    
+                        <button class="btn btn-success text-center">SIGN UP</button>
 
-                    <button class="btn btn-success text-center">SIGN UP</button>
+                </div>
+
                     
                 </form>
                 

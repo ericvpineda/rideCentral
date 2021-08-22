@@ -22,6 +22,9 @@ const passport = require('passport');
 const passportStrategy = require('passport-local');
 const User = require('./models/user');
 const Trip = require('./models/trip')
+const sanitizeMongo = require('express-mongo-sanitize')
+const helmet = require('helmet');
+const {scriptSrcUrls, styleSrcUrls, connectSrcUrls, fontSrcUrls} = require('./utils/allowedScripts');
 
 // SET FUNCTIONS 
 app.set('view engine', 'ejs');
@@ -42,7 +45,8 @@ const sessionOptions = {
         // note: expires in 1 week 
         expires : Date.now() + 604800000,
         maxAge : 604800000, 
-        httpOnly : true 
+        httpOnly : true,
+        // secure : true
     }
 }
 
@@ -57,10 +61,32 @@ app.use(session(sessionOptions))
 app.use(expressFlash())
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(sanitizeMongo({replaceWith : "_"}))
+app.use(helmet({contentSecurityPolicy : false}))
+
 passport.use(new passportStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
+app.use(helmet.contentSecurityPolicy({
+    directives : {
+        defaultSrc : [],
+        connectSrc : ["'self'", ...connectSrcUrls],
+        scriptSrc : ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+        styleSrc : ["'unsafe-inline'", "'self'", ...styleSrcUrls],
+        workerSrc : ["'self'", "blob:"],
+        objectSrc : [],
+        imgSrc : [
+            "'self'",
+            "blob:",
+            "data:",
+            "https://res.cloudinary.com/blackdiedev/", 
+            "https://images.unsplash.com/",
+            "https://source.unsplash.com/"
+        ],
+        fontSrc : ["'self'", ...fontSrcUrls]
+    }
+}))
 
 
 // DATABASE 
@@ -77,6 +103,7 @@ db.on('error', () => console.error.bind(console, "MONGODB CONNECTION ERROR"));
 
 // FLASH 
 app.use((req, res, next) => {
+    console.log(req.body)
     res.locals.authorizeUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
