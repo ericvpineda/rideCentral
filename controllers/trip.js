@@ -25,7 +25,6 @@ const show = async (req, res, next) => {
         }
     })
         .catch(() => {throw new CustomError("Cannot find product!", 404)});
-    console.log(trip.img[0])
     if (trip === null) {
         req.flash('error', 'Cannot find specified trip!');
         res.redirect('/rides')

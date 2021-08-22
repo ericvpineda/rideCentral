@@ -27,6 +27,9 @@ const {scriptSrcUrls, styleSrcUrls, connectSrcUrls, fontSrcUrls} = require('./ut
 const targetUrl = process.env.ATLAS_URL || 'mongodb://localhost:27017/rideCentral'
 const MongoStore = require('connect-mongo');
 const port = process.env.PORT || 3000
+// const fs = require('fs')
+// const https = require('https')
+
 
 
 const store = MongoStore.create({
@@ -49,7 +52,7 @@ const sessionOptions = {
         expires : Date.now() + 604800000,
         maxAge : 604800000, 
         httpOnly : true,
-        // secure : true
+        secure : true
     }
 }
 
@@ -147,6 +150,10 @@ app.use((err, req, res, next) => {
 
 
 // SERVER
+// https.createServer({
+//     key: fs.readFileSync('key.pem'),
+//     cert:fs.readFileSync('cert.pem')
+// }, app)
 app.listen(port, () => {
     console.log(`SERVER IS LISTENING TO PORT ${port}`)
 })

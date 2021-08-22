@@ -37,3 +37,8 @@ main {
     color: rgba(255,255,255,0.9);
     border-bottom: 2px solid #fff;
 }
+
+#map {
+    width: 100%; 
+    height: 500px;
+}

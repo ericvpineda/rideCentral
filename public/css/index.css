@@ -4,9 +4,12 @@ ul > a, ul > a:hover {
 }
 
 img {
-    min-height: 150px;
-    /* max-height: 150px; */
+    min-height: 200px;
+    max-height: 200px;
     min-width: 100%;
+
+    object-fit: cover;
+    object-position: 20% 10%;
 }
 
 .posts {
