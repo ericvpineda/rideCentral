@@ -26,7 +26,7 @@ const helmet = require('helmet');
 const {scriptSrcUrls, styleSrcUrls, connectSrcUrls, fontSrcUrls} = require('./utils/allowedScripts');
 const targetUrl = process.env.ATLAS_URL || 'mongodb://localhost:27017/rideCentral'
 const MongoStore = require('connect-mongo');
-const port = process.env.port || 3000
+const port = process.env.PORT || 3000
 
 
 const store = MongoStore.create({
@@ -37,9 +37,6 @@ const store = MongoStore.create({
     touchAfter : 86400
 })
 
-store.on("error", (e) => {
-    console.log("SESSION STORE ERROR", e)
-})
 // EXPRESS SESSION
 const sessionOptions = {
     store, 
@@ -151,6 +148,6 @@ app.use((err, req, res, next) => {
 
 // SERVER
 app.listen(port, () => {
-    console.log('SERVER IS LISTENING TO PORT 3000')
+    console.log(`SERVER IS LISTENING TO PORT ${port}`)
 })
 
