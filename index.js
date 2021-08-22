@@ -8,7 +8,6 @@ const app = express();
 const path = require('path');
 const ejsMate = require('ejs-mate')
 const mongoose = require('mongoose');
-const localUrl = 'mongodb://localhost:27017/rideCentral'
 const tripRoute = require('./routes/trip');
 const reviewRoute = require('./routes/review');
 const userRoute = require('./routes/user')
@@ -25,18 +24,23 @@ const Trip = require('./models/trip')
 const sanitizeMongo = require('express-mongo-sanitize')
 const helmet = require('helmet');
 const {scriptSrcUrls, styleSrcUrls, connectSrcUrls, fontSrcUrls} = require('./utils/allowedScripts');
+const targetUrl = process.env.ATLAS_URL || 'mongodb://localhost:27017/rideCentral'
+const MongoStore = require('connect-mongo');
 
-// SET FUNCTIONS 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '/views'))
+const store = MongoStore.create({
+    mongoUrl : targetUrl,
+    crypto : {
+        secret
+    },
+    touchAfter : 86400
+})
 
-
-// ENGINE FUNCTIONS 
-app.engine('ejs', ejsMate)
-
-
+store.on("error", (e) => {
+    console.log("SESSION STORE ERROR", e)
+})
 // EXPRESS SESSION
 const sessionOptions = {
+    store, 
     name : 'session',
     secret,
     resave : false,
@@ -49,6 +53,14 @@ const sessionOptions = {
         // secure : true
     }
 }
+
+// SET FUNCTIONS 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '/views'))
+
+
+// ENGINE FUNCTIONS 
+app.engine('ejs', ejsMate)
 
 
 // USE FUNCTIONS 
@@ -80,7 +92,7 @@ app.use(helmet.contentSecurityPolicy({
             "'self'",
             "blob:",
             "data:",
-            "https://res.cloudinary.com/blackdiedev/", 
+            "https://res.cloudinary.com/ridecentral/", 
             "https://images.unsplash.com/",
             "https://source.unsplash.com/"
         ],
@@ -90,7 +102,7 @@ app.use(helmet.contentSecurityPolicy({
 
 
 // DATABASE 
-mongoose.connect(localUrl, {
+mongoose.connect(targetUrl, {
     useNewUrlParser : true,
     useUnifiedTopology : true,
     useCreateIndex : true,
@@ -103,7 +115,6 @@ db.on('error', () => console.error.bind(console, "MONGODB CONNECTION ERROR"));
 
 // FLASH 
 app.use((req, res, next) => {
-    console.log(req.body)
     res.locals.authorizeUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
@@ -133,7 +144,7 @@ app.all('*', (req, res, next) => {
 
 app.use((err, req, res, next) => {
     const {msg = "Something went wrong!", code = 404} = err;
-    res.status(code).render('error', {"error" : err});
+    res.status(code).render('error', {"error" : msg});
 })
 
 

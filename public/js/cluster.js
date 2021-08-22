@@ -94,7 +94,6 @@ map.on("load", function () {
   map.on("click", "unclustered-point", function (e) {
     var coordinates = e.features[0].geometry.coordinates.slice();
     var html = e.features[0].properties.popUp;
-    var tsunami;
 
     if (e.features[0].properties.tsunami === 1) {
       tsunami = "yes";

@@ -8,7 +8,7 @@ const imageSchema = new Schema({
 })
 
 imageSchema.virtual('thumbnail').get(function() {
-    return this.url.replace('/upload','/upload/w_100,h_100')
+    return this.url.replace('/upload','/upload/w_100')
 })
 
 const tripSchema = new Schema({
@@ -49,8 +49,8 @@ const tripSchema = new Schema({
 }, {toJSON : {virtuals : true}})
 
 tripSchema.virtual('properties.popUp').get(function () {
-    return `<strong><a href="/trips/${this._id}">${this.title}</a><strong>
-    <p>${this.description.substring(0,20)}...</p>`
+    return `<strong><a href="/trips/${this._id}" style="color:black">${this.title}</a><strong>
+    <p style="color:black">${this.description.substring(0,20)}...</p>`
 })
 
 // NOTE: REMOVE ALL REVIEW ASSO WITH TRIP
