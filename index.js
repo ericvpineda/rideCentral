@@ -52,7 +52,7 @@ const sessionOptions = {
         expires : Date.now() + 604800000,
         maxAge : 604800000, 
         httpOnly : true,
-        // secure : true
+        secure : true
     }
 }
 
