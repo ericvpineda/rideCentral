@@ -5,14 +5,6 @@ ul > a, ul > a:hover {
 
 img {
     min-height: 150px;
-    max-height: 150px;
+    /* max-height: 150px; */
     min-width: 100%;
 }
-
-
-/* .row {
-    max-height: 150px;
-}  */
-
-
-

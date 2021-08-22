@@ -1,6 +1,19 @@
 #arrow {
     position: absolute;
     background-color: #000;
-    margin-left: 2rem;
+    margin-left: 1rem;
+    margin-top: 0.5rem;
     border-radius: 50%;
+    z-index: 2;
+}
+
+#carousel-image {
+    z-index: -1;
+    /* max-width: 15rem; 
+    max-height: 15rem; */
+}
+
+#map {
+    width: 500px; 
+    height: 300px;
 }

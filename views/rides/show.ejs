@@ -18,11 +18,10 @@
 
 <div class="container">
 
-
     <div class="row">
 
         <!-- Note: main text  -->
-        <div class="col-5 offset-1">
+        <div class="col-md-5 offset-md-1">
 
             <div class="card">
 
@@ -36,7 +35,7 @@
                             
                                 <div class="carousel-item <%= i == 0 ? 'active' : ''  %>" > 
                                 
-                                    <img src="<%= image.url %>" class="d-block w-100" style="width: 300px; height: 300px">
+                                    <img src="<%= image.url %>" id="carousel-image" class="img-fluid">
                                 
                                 </div>
 
@@ -145,10 +144,10 @@
         </div>
 
         <!-- note: review  -->
-        <div class="col-4 offset-1 mt-3">
+        <div class="col-md-5 offset-md-1 mt-3">
 
             <!-- map  -->
-            <div id='map' style='width: 300px; height: 300px;'></div>
+            <div id='map' class="img-fluid"></div>
 
             <h3 class="mt-4">Reviews</h3>
 
