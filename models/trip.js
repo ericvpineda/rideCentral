@@ -49,7 +49,7 @@ const tripSchema = new Schema({
 }, {toJSON : {virtuals : true}})
 
 tripSchema.virtual('properties.popUp').get(function () {
-    return `<strong><a href="/trips/${this._id}" style="color:black">${this.title}</a><strong>
+    return `<strong><a href="/rides/${this._id}" style="color:black">${this.title}</a><strong>
     <p style="color:black">${this.description.substring(0,20)}...</p>`
 })
 
